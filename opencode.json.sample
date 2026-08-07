@@ -1,0 +1,54 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "deepseek/deepseek-reasoner",
+  "default_agent": "chief",
+  "permission": {
+    "edit": "ask",
+    "bash": "ask",
+    "skill": {
+      "*": "allow"
+    }
+  },
+  "agent": {
+    "chief": {
+      "mode": "primary",
+      "model": "deepseek/deepseek-reasoner"
+    },
+    "adversarial-critic": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-pro"
+    },
+    "system-fixer": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-pro"
+    },
+    "product-manager": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-pro"
+    },
+    "builder": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-pro"
+    },
+    "qa-engineer": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-pro"
+    },
+    "compliance-officer": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-pro"
+    },
+    "context-librarian": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-pro"
+    },
+    "research-scout": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-flash"
+    },
+    "investigator": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-v4-flash"
+    }
+  }
+}

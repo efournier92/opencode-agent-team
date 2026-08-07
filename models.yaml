@@ -1,0 +1,27 @@
+# Model tier mapping for the multi-agent plugin.
+# This is the single source of truth for agent model assignments.
+# After editing, run scripts/apply-models.py to regenerate agent frontmatter
+# and opencode.json.sample from this file.
+
+# Tier model IDs (OpenCode provider/model-id format).
+# Verify exact IDs with `/models` after connecting the provider.
+tiers:
+  top:   deepseek/deepseek-reasoner
+  mid:   deepseek/deepseek-v4-pro
+  cheap: deepseek/deepseek-v4-flash
+
+# Agent-to-tier mapping.
+# Agents not listed here inherit the invoking primary agent's model.
+agent_tiers:
+  chief: top
+
+  adversarial-critic: mid
+  system-fixer: mid
+  product-manager: mid
+  builder: mid
+  qa-engineer: mid
+  compliance-officer: mid
+  context-librarian: mid
+
+  research-scout: cheap
+  investigator: cheap
