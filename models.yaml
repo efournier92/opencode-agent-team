@@ -4,24 +4,35 @@
 # and opencode.json.sample from this file.
 
 # Tier model IDs (OpenCode provider/model-id format).
+# Shipped default: Claude. Commented alternatives: OpenAI (2026-08), DeepSeek.
 # Verify exact IDs with `/models` after connecting the provider.
 tiers:
-  top:   deepseek/deepseek-reasoner
-  mid:   deepseek/deepseek-v4-pro
-  cheap: deepseek/deepseek-v4-flash
+  top:   anthropic/claude-opus-5
+  mid:   anthropic/claude-sonnet-5
+  low:   anthropic/claude-haiku-4-5
+
+  # OpenAI (GPT-5.6 family, 2026-08):
+  # top:   openai/gpt-5.6-sol
+  # mid:   openai/gpt-5.6-terra
+  # low:   openai/gpt-5.6-luna
+
+  # DeepSeek:
+  # top:   deepseek/deepseek-reasoner
+  # mid:   deepseek/deepseek-v4-pro
+  # low:   deepseek/deepseek-v4-flash
 
 # Agent-to-tier mapping.
 # Agents not listed here inherit the invoking primary agent's model.
 agent_tiers:
   chief: top
 
-  adversarial-critic: mid
+  critic: mid
   system-fixer: mid
   product-manager: mid
   builder: mid
-  qa-engineer: mid
+  qa: mid
   compliance-officer: mid
-  context-librarian: mid
+  context-curator: mid
 
-  research-scout: cheap
-  investigator: cheap
+  scout: low
+  investigator: low
