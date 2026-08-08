@@ -28,9 +28,9 @@ Model assignments centralized in `models.yaml` in this plugin tree. Three tiers:
 
 - **top**: operator and highest-reasoning agents (`chief`).
 - **mid**: bounded workers that still need reasoning depth (`builder`,
-  `qa-engineer`, `compliance-officer`, `context-librarian`, `adversarial-critic`,
+  `qa`, `compliance-officer`, `context-curator`, `critic`,
   `system-fixer`, `product-manager`).
-- **cheap**: shallow locate-and-compress tasks (`research-scout`, `investigator`).
+- **low**: shallow locate-and-compress tasks (`scout`, `investigator`).
 
 `models.yaml` maps each agent to a tier. Run `scripts/apply-models.py` after
 editing it to regenerate agent frontmatter and `opencode.json.sample` from that
@@ -68,10 +68,10 @@ exhaustive sweep. A question answerable by one grep/glob never leaves the main
 thread — dispatch costs more than it saves.
 
 Nontrivial "done" claims from an implementation agent go through the verification
-agent before acceptance. Major handoffs get one adversarial-critic-style pass.
+agent before acceptance. Major handoffs get one critic-style pass.
 
-**Scout fan-out**: for open-ended recon, dispatch 2–3 cheap scouts in parallel in
-one message — `investigator` for in-repo locating, `research-scout` for external
+**Scout fan-out**: for open-ended recon, dispatch 2–3 low-tier scouts in parallel in
+one message — `investigator` for in-repo locating, `scout` for external
 facts — each one topic. Their output is deterministic (`path:line` /
 `claim + URL`) so the operator picks target sites from the compressed results
 instead of re-reading the code. Scout output is never a substitute for
@@ -125,26 +125,27 @@ side-effect-free commands (status/log/diff/show, grep, ls, find, head, tail).
 
 ## Roster
 
+Naming convention: agents are role nouns (`builder`, `critic`); skills are verbs/actions (`specify`, `commit`). New additions follow the same word-class split.
+
 | Path | Kind | Job |
 |---|---|---|
 | `agents/chief.md` | agent | operator: decides, decomposes, routes, verifies, writes handoffs |
 | `agents/builder.md` | agent | bounded implementation from an exact scope |
-| `agents/qa-engineer.md` | agent | PASS/FAIL verification, evidence = executed commands only |
-| `agents/adversarial-critic.md` | agent | attacks handoffs/diffs/claims before they're trusted |
+| `agents/qa.md` | agent | PASS/FAIL verification, evidence = executed commands only |
+| `agents/critic.md` | agent | attacks handoffs/diffs/claims before they're trusted |
 | `agents/system-fixer.md` | agent | repairs the agent system itself; improvement mode for recurring failures |
-| `agents/context-librarian.md` | agent | keeps instruction docs / memory / handoffs true and lean |
-| `agents/research-scout.md` | agent | external facts: docs, versions, APIs (cheap model) |
-| `agents/investigator.md` | agent | in-repo code locator: where X is defined, what calls Y (cheap model) |
+| `agents/context-curator.md` | agent | keeps instruction docs / memory / handoffs true and lean |
+| `agents/scout.md` | agent | external facts: docs, versions, APIs (low tier) |
+| `agents/investigator.md` | agent | in-repo code locator: where X is defined, what calls Y (low tier) |
 | `agents/compliance-officer.md` | agent | pre-filters spec/branch/PR for real regulatory/compliance questions |
 | `agents/product-manager.md` | agent | harsh product/UX critique of spec/branch/PR |
-| `skills/specifier/SKILL.md` | skill | turns a rough spec into an implementation-ready design doc |
-| `skills/implementer/SKILL.md` | skill | builds exactly what a finished spec says, iterating to green |
-| `skills/committer/SKILL.md` | skill | organizes finished work into logical commits, never auto-commits |
+| `skills/specify/SKILL.md` | skill | turns a rough spec into an implementation-ready design doc |
+| `skills/implement/SKILL.md` | skill | builds exactly what a finished spec says, iterating to green |
+| `skills/commit/SKILL.md` | skill | organizes finished work into logical commits, never auto-commits |
 | `skills/handoff/SKILL.md` | skill | writes a structured session handoff for fresh-session resume |
-| `skills/qa/SKILL.md` | skill | proves a feature works end-to-end in a real browser, local stack only |
+| `skills/browser-verify/SKILL.md` | skill | proves a feature works end-to-end in a real browser, local stack only |
 | `skills/ship-check/SKILL.md` | skill | parallel pre-ship quality gate on a branch |
 | `skills/worktree/SKILL.md` | skill | manages grouped git worktrees with isolated ports/DBs |
-| `skills/autofill-generation/SKILL.md` | skill | generates a randomized form-autofill script from a UI form |
-| `skills/caveman/SKILL.md` | skill | toggles terse, high-signal output mode to cut output tokens |
-| `skills/ponytail/SKILL.md` | skill | forces the laziest, minimal solution that works to cut code volume |
-| `skills/frontend-design/SKILL.md` | skill | sleek, distinctive frontend design: typography, palette, layout, anti-slop, verification checklist |
+| `skills/terse/SKILL.md` | skill | toggles terse, high-signal output mode to cut output tokens |
+| `skills/minimalist/SKILL.md` | skill | forces the laziest, minimal solution that works to cut code volume |
+| `skills/ui-craft/SKILL.md` | skill | sleek, distinctive frontend design: typography, palette, layout, anti-slop, verification checklist |
