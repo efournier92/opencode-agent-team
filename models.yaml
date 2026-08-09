@@ -16,8 +16,8 @@ tiers:
   # mid:   openai/gpt-5.6-terra
   # low:   openai/gpt-5.6-luna
 
-  # DeepSeek:
-  # top:   deepseek/deepseek-reasoner
+  # DeepSeek (V4; deepseek-chat/deepseek-reasoner retired 2026-07-24):
+  # top:   deepseek/deepseek-v4-pro    # thinking mode on
   # mid:   deepseek/deepseek-v4-pro
   # low:   deepseek/deepseek-v4-flash
 
@@ -33,6 +33,7 @@ agent_tiers:
   qa: mid
   compliance-officer: mid
   context-curator: mid
+  photo-generator: mid
 
   scout: low
   investigator: low

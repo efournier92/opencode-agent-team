@@ -42,6 +42,10 @@
       "mode": "subagent",
       "model": "anthropic/claude-sonnet-5"
     },
+    "photo-generator": {
+      "mode": "subagent",
+      "model": "anthropic/claude-sonnet-5"
+    },
     "scout": {
       "mode": "subagent",
       "model": "anthropic/claude-haiku-4-5"
