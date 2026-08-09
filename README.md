@@ -71,15 +71,16 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 | `qa` | subagent | mid | PASS/FAIL verification agent that proves claims by executing commands; read-only on code. |
 | `critic` | subagent | mid | Red-team reviewer that attacks handoffs, plans, diffs, and claims for fake progress before they are trusted. |
 | `system-fixer` | subagent | mid | Repairs the agent system itself (configs, hooks, instruction docs) and runs improvement mode for recurring failures. |
-| `context-curator` | subagent | mid | Hygiene agent for instruction docs, memory index, and handoffs — keeps context lean and claims true. |
+| `context-curator` | subagent | mid | Hygiene agent for instruction docs, memory index, and handoffs; keeps context lean and claims true. |
 | `scout` | subagent | low | Low-tier external-research agent for docs, versions, APIs, and changelogs outside the codebase. |
 | `investigator` | subagent | low | Low-tier read-only in-repo code locator that finds where symbols are defined and what calls them, with compressed deterministic output. |
 | `compliance-officer` | subagent | mid | Pre-filters specs, branches, and PRs for regulatory/legal/fiduciary/privacy questions worth a human compliance officer's time. |
 | `product-manager` | subagent | mid | Harsh product/UX critique of specs, branches, and PRs from the user's perspective. |
+| `photo-generator` | subagent | mid | Local AI photo-generation specialist: sets up a ComfyUI/SDXL rig, downloads models, produces identity-consistent artistic images via scripted runners. |
 
 *Mode and tier are shipped defaults. Model IDs are user-configurable via `models.yaml` (see Model Tiers).*
 
-### `skills/` — 10 skills,
+### `skills/` (10 skills)
 
 - 1 directory per skill, each with with a `SKILL.md` inside.
 
@@ -87,14 +88,14 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 |---|---|
 | `specify` | Turn a rough design sketch into an implementation-ready spec document. |
 | `implement` | Build exactly what a finished design spec says and iterate to a green test suite. |
-| `commit` | Organize already-completed work into logical commits — stages chunks and suggests messages, never commits. |
+| `commit` | Organize already-completed work into logical commits: stages chunks and suggests messages, never commits. |
 | `handoff` | Write a structured session handoff so a fresh session resumes without re-exploring. |
 | `browser-verify` | Prove a feature works end-to-end in a real browser against the local dev stack only. |
 | `ship-check` | Run a parallel pre-ship quality gate on a feature branch with read-only reviewers. |
 | `worktree` | Create, list, or remove grouped git worktrees across repos, each with isolated ports and its own database. |
-| `terse` | Toggle terse, high-signal output — cut filler while keeping technical facts exact. |
+| `terse` | Toggle terse, high-signal output: cut filler while keeping technical facts exact. |
 | `minimalist` | Force the laziest, minimal solution that works: cut over-engineering, reuse existing code, ship the smallest diff. |
-| `ui-craft` | Sleek, distinctive frontend design guidance — typography, palette, layout, and anti-AI-slop checks. |
+| `ui-craft` | Sleek, distinctive frontend design guidance: typography, palette, layout, and anti-AI-slop checks. |
 
 ## Model Tiers
 
@@ -114,8 +115,8 @@ tiers:
   # mid:   openai/gpt-5.6-terra
   # low:   openai/gpt-5.6-luna
 
-  # DeepSeek:
-  # top:   deepseek/deepseek-reasoner
+  # DeepSeek (V4; deepseek-chat/deepseek-reasoner retired 2026-07-24):
+  # top:   deepseek/deepseek-v4-pro    # thinking mode on
   # mid:   deepseek/deepseek-v4-pro
   # low:   deepseek/deepseek-v4-flash
 

@@ -4,11 +4,11 @@ Install this plugin into OpenCode so the multi-agent system is available in ever
 
 ## What gets installed
 
-- **10 agents** in `agents/` → `<config-dir>/agents/`
-- **10 skills** in `skills/` → `<config-dir>/skills/`
-- **Shared rulebook** `AGENTS.md` → `~/.config/opencode/AGENTS.md` (global) or `<project-root>/AGENTS.md` (per-project)
-- **OpenCode config** `opencode.json.sample` → merged into `~/.config/opencode/opencode.json` or `opencode.jsonc`
-- **Model tiers** `models.yaml` → `<config-dir>/models.yaml` (copied only if not already present — never overwrites a customized copy on reinstall)
+- **10 agents** in `agents/` to `<config-dir>/agents/`
+- **10 skills** in `skills/` to `<config-dir>/skills/`
+- **Shared rulebook** `AGENTS.md` to `~/.config/opencode/AGENTS.md` (global) or `<project-root>/AGENTS.md` (per-project)
+- **OpenCode config** `opencode.json.sample` merged into `~/.config/opencode/opencode.json` or `opencode.jsonc`
+- **Model tiers** `models.yaml` to `<config-dir>/models.yaml` (copied only if not already present; never overwrites a customized copy on reinstall)
 
 ## Prerequisites
 
@@ -39,7 +39,7 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 
 4. Copy the model-tier mapping (preserved on reinstall), then merge the sample config into your global OpenCode config.
 
-OpenCode reads both `~/.config/opencode/opencode.json` and `~/.config/opencode/opencode.jsonc`. The model-tier mapping is copied only if you don't already have one — reinstalling never overwrites a customized `models.yaml`:
+OpenCode reads both `~/.config/opencode/opencode.json` and `~/.config/opencode/opencode.jsonc`. The model-tier mapping is copied only if you don't already have one; reinstalling never overwrites a customized `models.yaml`:
 
 ```bash
 if [ -f ~/.config/opencode/models.yaml ]; then
@@ -64,18 +64,18 @@ fi
 ```
 
 The sample sets:
-- `default_agent`: `chief` — every new session starts as the operator agent.
+- `default_agent`: `chief`: every new session starts as the operator agent.
 - `model`: the current `top` tier model from `models.yaml` (used by `chief`).
 - `agent.*.model`: per-agent overrides for every agent listed in `models.yaml`'s `agent_tiers`.
 - `permission`: `edit`/`bash` ask, `skill` allow.
 
-To change model IDs later, edit the repo's `models.yaml`, run `python3 scripts/apply-models.py` (prerequisite: Python 3 with PyYAML installed — `pip install pyyaml`), then reinstall the regenerated agents and `opencode.json.sample`. Note: `apply-models.py` reads the **repo** copy, not the installed `<config-dir>/models.yaml` — the installed copy is preserved across reinstalls and documents your chosen tiers.
+To change model IDs later, edit the repo's `models.yaml`, run `python3 scripts/apply-models.py` (prerequisite: Python 3 with PyYAML installed; `pip install pyyaml`), then reinstall the regenerated agents and `opencode.json.sample`. Note: `apply-models.py` reads the **repo** copy, not the installed `<config-dir>/models.yaml`; the installed copy is preserved across reinstalls and documents your chosen tiers.
 
 5. Restart OpenCode or reload config.
 
 6. Verify:
-   - Run `/agents` in the TUI — expect `chief` (subagents appear via `@` mention or the `task` tool).
-   - Check the `skill` tool description — it should list all 10 skills.
+   - Run `/agents` in the TUI; expect `chief` (subagents appear via `@` mention or the `task` tool).
+   - Check the `skill` tool description; it should list all 10 skills.
    - Start a new session; it should begin as `chief`.
 
 ## Per-project install
@@ -132,7 +132,7 @@ OpenCode merges config and rules from all discovered locations; later sources ov
 
 ## Reinstalling / upgrading
 
-`cp -n` and `cp -Rn` only add files — they never remove renamed or deleted ones. Reinstalling over an older version therefore leaves stale agents/skills behind (e.g. old names like `caveman`, `specifier`, `qa-engineer` alongside their renames `terse`, `specify`, `qa`). Before upgrading, clear the agent/skill dirs and reinstall fresh:
+`cp -n` and `cp -Rn` only add files; they never remove renamed or deleted ones. Reinstalling over an older version therefore leaves stale agents/skills behind (e.g. old names like `caveman`, `specifier`, `qa-engineer` alongside their renames `terse`, `specify`, `qa`). Before upgrading, clear the agent/skill dirs and reinstall fresh:
 
 ```bash
 # global
