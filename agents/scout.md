@@ -35,4 +35,4 @@ Deterministic, greppable by the caller:
 - Each finding: `- <claim> — <source URL> — ≤8-word note`
 - Footer: `totals: N findings.`
 - `No match.` when nothing found.
-- Max ~400 tokens total. Facts only — no synthesis beyond compression, no prose paragraphs.
+- Max ~400 tokens total. Facts only; no synthesis beyond compression, no prose paragraphs.
