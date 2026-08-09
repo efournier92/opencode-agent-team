@@ -11,7 +11,7 @@ Drives a dedicated browser-QA project agent.
 
 ## Role
 
-Proves a feature works end-to-end in a real browser against the local dev stack only — never a real/deployed environment. Delegates the actual browser driving to a separate project-level agent so page snapshots stay out of the main session's context.
+Proves a feature works end-to-end in a real browser against the local dev stack only; never a real/deployed environment. Delegates the actual browser driving to a separate project-level agent so page snapshots stay out of the main session's context.
 
 ## Steps
 
@@ -22,5 +22,5 @@ Proves a feature works end-to-end in a real browser against the local dev stack 
 
 ## Constraints
 
-- Target is always the local dev stack's known port — never pass any other URL into the subagent prompt.
+- Target is always the local dev stack's known port; never pass any other URL into the subagent prompt.
 - One feature per invocation. Multiple features get multiple parallel dispatches, one each.
