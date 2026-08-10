@@ -105,20 +105,20 @@ All model assignments driven by `models.yaml`:
 
 ```yaml
 tiers:
-  # Claude (shipped default)
-  top:   anthropic/claude-opus-5
-  mid:   anthropic/claude-sonnet-5
-  low:   anthropic/claude-haiku-4-5
+  # DeepSeek V4 (shipped default)
+  top:   deepseek/deepseek-v4-pro    # thinking mode on
+  mid:   deepseek/deepseek-v4-pro
+  low:   deepseek/deepseek-v4-flash
+
+  # Claude:
+  # top:   anthropic/claude-opus-5
+  # mid:   anthropic/claude-sonnet-5
+  # low:   anthropic/claude-haiku-4-5
 
   # OpenAI (GPT-5.6 family, 2026-08):
   # top:   openai/gpt-5.6-sol
   # mid:   openai/gpt-5.6-terra
   # low:   openai/gpt-5.6-luna
-
-  # DeepSeek (V4; deepseek-chat/deepseek-reasoner retired 2026-07-24):
-  # top:   deepseek/deepseek-v4-pro    # thinking mode on
-  # mid:   deepseek/deepseek-v4-pro
-  # low:   deepseek/deepseek-v4-flash
 
 agent_tiers:
   chief: top
@@ -127,7 +127,7 @@ agent_tiers:
   ...
 ```
 
-*Shipped default is Claude; commented OpenAI and DeepSeek alternatives live in `models.yaml`.*
+*Shipped default is DeepSeek V4; commented Claude and OpenAI alternatives live in `models.yaml`.*
 
 ### Update
 
