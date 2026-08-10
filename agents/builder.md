@@ -1,7 +1,7 @@
 ---
 description: Bounded implementation worker for a well-specified task with a clear done-check.
 mode: subagent
-model: anthropic/claude-sonnet-5
+model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: allow

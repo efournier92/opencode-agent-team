@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "anthropic/claude-opus-5",
+  "model": "deepseek/deepseek-v4-pro",
   "default_agent": "chief",
   "permission": {
     "edit": "ask",
@@ -12,47 +12,47 @@
   "agent": {
     "chief": {
       "mode": "primary",
-      "model": "anthropic/claude-opus-5"
+      "model": "deepseek/deepseek-v4-pro"
     },
     "critic": {
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5"
+      "model": "deepseek/deepseek-v4-pro"
     },
     "system-fixer": {
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5"
+      "model": "deepseek/deepseek-v4-pro"
     },
     "product-manager": {
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5"
+      "model": "deepseek/deepseek-v4-pro"
     },
     "builder": {
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5"
+      "model": "deepseek/deepseek-v4-pro"
     },
     "qa": {
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5"
+      "model": "deepseek/deepseek-v4-pro"
     },
     "compliance-officer": {
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5"
+      "model": "deepseek/deepseek-v4-pro"
     },
     "context-curator": {
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5"
+      "model": "deepseek/deepseek-v4-pro"
     },
     "photo-generator": {
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-5"
+      "model": "deepseek/deepseek-v4-pro"
     },
     "scout": {
       "mode": "subagent",
-      "model": "anthropic/claude-haiku-4-5"
+      "model": "deepseek/deepseek-v4-flash"
     },
     "investigator": {
       "mode": "subagent",
-      "model": "anthropic/claude-haiku-4-5"
+      "model": "deepseek/deepseek-v4-flash"
     }
   }
 }

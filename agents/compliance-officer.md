@@ -1,7 +1,7 @@
 ---
 description: Pre-filters specs, branches, and PRs for regulatory/legal/fiduciary/privacy questions worth a human compliance officer's time.
 mode: subagent
-model: anthropic/claude-sonnet-5
+model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: deny

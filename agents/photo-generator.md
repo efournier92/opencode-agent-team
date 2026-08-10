@@ -1,7 +1,7 @@
 ---
 description: Local AI photo-generation specialist; sets up a ComfyUI/SDXL rig, downloads models, and produces identity-consistent artistic images via scripted runners.
 mode: subagent
-model: anthropic/claude-sonnet-5
+model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: allow

@@ -1,7 +1,7 @@
 ---
 description: Harsh product/UX critique of specs, branches, and PRs from the user's perspective.
 mode: subagent
-model: anthropic/claude-sonnet-5
+model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: deny

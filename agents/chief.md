@@ -1,7 +1,7 @@
 ---
 description: Operator agent that decides, decomposes, routes work to specialists, verifies output, and writes handoffs.
 mode: primary
-model: anthropic/claude-opus-5
+model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: allow

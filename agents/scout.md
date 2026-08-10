@@ -1,7 +1,7 @@
 ---
 description: Low-tier external-research agent for docs, versions, APIs, and changelogs outside the codebase.
 mode: subagent
-model: anthropic/claude-haiku-4-5
+model: deepseek/deepseek-v4-flash
 permission:
   read: allow
   edit: deny
