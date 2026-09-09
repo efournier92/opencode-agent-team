@@ -4,11 +4,14 @@ Install this plugin into OpenCode so the multi-agent system is available in ever
 
 ## What gets installed
 
-- **10 agents** in `agents/` to `<config-dir>/agents/`
+- Subagents in `agents/` to `<config-dir>/agents/`
 - **10 skills** in `skills/` to `<config-dir>/skills/`
 - **Shared rulebook** `AGENTS.md` to `~/.config/opencode/AGENTS.md` (global) or `<project-root>/AGENTS.md` (per-project)
 - **OpenCode config** `opencode.json.sample` merged into `~/.config/opencode/opencode.json` or `opencode.jsonc`
 - **Model tiers** `models.yaml` to `<config-dir>/models.yaml` (copied only if not already present; never overwrites a customized copy on reinstall)
+
+Models are pinned only in the JSON config.
+Agent and skill `.md` files declare mode and permissions but never a `model:` line; doing so would shadow the JSON and silently override your tier mapping.
 
 ## Prerequisites
 
@@ -65,16 +68,16 @@ fi
 
 The sample sets:
 - `default_agent`: `chief`: every new session starts as the operator agent.
-- `model`: the current `top` tier model from `models.yaml` (used by `chief`).
+- `model`: the default for agents without an explicit override; `chief`, `builder`, and every other listed agent have their own `agent.<name>.model` overrides in the same file.
 - `agent.*.model`: per-agent overrides for every agent listed in `models.yaml`'s `agent_tiers`.
 - `permission`: `edit`/`bash` ask, `skill` allow.
 
-To change model IDs later, edit the repo's `models.yaml`, run `python3 scripts/apply-models.py` (prerequisite: Python 3 with PyYAML installed; `pip install pyyaml`), then reinstall the regenerated agents and `opencode.json.sample`. Note: `apply-models.py` reads the **repo** copy, not the installed `<config-dir>/models.yaml`; the installed copy is preserved across reinstalls and documents your chosen tiers.
+To change model IDs later, edit the repo's `models.yaml`, run `python3 scripts/apply-models.py` (prerequisite: Python 3 with PyYAML installed; `pip install pyyaml`), then merge the regenerated `opencode.json.sample` back into your `opencode.json` or `opencode.jsonc`. Agent `.md` files are not regenerated and need no reinstallation. Note: `apply-models.py` reads the **repo** copy, not the installed `<config-dir>/models.yaml`; the installed copy is preserved across reinstalls and documents your chosen tiers.
 
 5. Restart OpenCode or reload config.
 
 6. Verify:
-   - Run `/agents` in the TUI; expect `chief` (subagents appear via `@` mention or the `task` tool).
+   - Run `/agents` in the TUI; expect `chief` plus all installed subagents.
    - Check the `skill` tool description; it should list all 10 skills.
    - Start a new session; it should begin as `chief`.
 
@@ -169,4 +172,4 @@ rm AGENTS.md
 - **Agents not listed**: confirm the `.md` files are in a directory OpenCode searches (`~/.config/opencode/agents/` or `.opencode/agents/`) and that YAML frontmatter is valid.
 - **Skills not listed**: confirm each skill is in its own folder with a file named exactly `SKILL.md` and that the frontmatter `name` matches the folder name.
 - **Chief is not the default**: confirm `default_agent: chief` is set in the active `opencode.json` or `opencode.jsonc`.
-- **Model overrides not applied**: confirm the provider prefix in `models.yaml` and the frontmatter `model:` lines match your OpenCode provider (current default is `anthropic/`).
+- **Model overrides not applied**: confirm the provider prefix in `models.yaml` matches your OpenCode provider, then re-run `python3 scripts/apply-models.py` and merge the regenerated `opencode.json.sample` into your active config.

@@ -25,14 +25,19 @@ Two more layers alongside agents:
 ## Model tiers
 
 Model assignments are centralized in `models.yaml` in this plugin tree.
-Three tiers:
+Seven tiers:
 
-- **top**: operator and highest-reasoning agents (`chief`).
-- **mid**: bounded workers that still need reasoning depth (`builder`, `qa`, `compliance-officer`, `context-curator`, `critic`, `system-fixer`, `product-manager`, `photo-generator`).
+- **top**: highest-reasoning workers (currently unused).
+- **mid**: bounded workers that still need reasoning depth.
+- **language-high**: nuanced prose, register control, and voice work (`wordsmith`).
+- **vision-high**: visual review with a vision-capable model (`visual-critic`).
+- **vision-low**: fast vision-capable fixes (`visual-builder`).
+- **image-generation-high**: image generation via a dedicated image model (`photo-generator`).
 - **low**: shallow locate-and-compress tasks (`scout`, `investigator`).
 
 `models.yaml` maps each agent to a tier.
-Run `scripts/apply-models.py` after editing it to regenerate agent frontmatter and `opencode.json.sample` from that single source of truth.
+Run `scripts/apply-models.py` after editing it; the script renders `models.yaml` into `opencode.json.sample`, which is the file OpenCode actually reads at runtime.
+The JSON config (`opencode.json` or `opencode.jsonc`) is therefore the live source of truth; agent and skill `.md` files never declare a model in their frontmatter.
 Agents not listed in `agent_tiers` inherit the invoking primary agent's model.
 
 ## Core operating loop (operator)
@@ -107,7 +112,7 @@ The instruction docs themselves comply with these rules.
    - Use commas, colons, semicolons, or split the sentence.
    - Exception: verbatim quotes or code you did not write keep their original characters.
 2. **No obvious LLM artifacts.**
-   - Avoid the telltale AI phrasing: "delve", "furthermore", "moreover", "it's worth noting", "in conclusion", "notably", "seamless", "robust", "leverage" as filler, "as an AI", "I'd be happy to".
+   - Avoid the telltale AI phrasing: `delve`, `furthermore`, `moreover`, `it's worth noting`, `in conclusion`, `notably`, `seamless`, `robust`, `leverage` as filler, `as an AI`, `I'd be happy to`.
    - Write like a careful human: short sentences, concrete words, edit once.
 3. **Blank line after every heading.**
    - Every level `#` through `######` is followed by an empty line before the first body line.
@@ -136,6 +141,30 @@ Recurrence is caught mechanically, not by memory.
 - Use one simple command per shell call where practical.
 - Keep read-only work within auto-allowed, side-effect-free commands (status/log/diff/show, grep, ls, find, head, tail).
 
+## Stash discipline (destructive git operations)
+
+Use this rule only when a task genuinely requires a destructive operation against the working tree or index. Examples that qualify:
+
+- `git checkout -- <tracked-path>` (overwrites local changes with HEAD).
+- `git reset --hard` (rewrites index and working tree).
+- `git restore <tracked-path>` (same as `checkout --`).
+- `git clean -fd` (deletes untracked files).
+- broad `rm -rf` against project paths.
+
+Procedure for any of these:
+
+1. Stash before the destructive step. Use a marker unique to this invocation that includes a timestamp and the agent PID, so collisions across processes or sessions are impossible. Example: `agent-test-$(date +%s)-$$`.
+2. Record the exact stash reference returned (`stash@{N}` index or commit SHA from `git stash create`).
+3. Run the destructive operation.
+4. After the task completes and the danger has passed, restore from the stash if appropriate, then drop it.
+5. Before any drop, verify the stash's message or commit identity still matches the marker the agent just created. If the index has shifted, the stash no longer exists, or the marker does not match, do NOT drop. Leave the stash alone and surface the inconsistency in the agent's report.
+
+Hard constraints:
+
+- Never `git stash drop` or `git stash pop` a stash the agent did not create in the same invocation.
+- Never `git stash clear`.
+- When in doubt, copy the affected paths to `/tmp` instead of stashing, then clean up the copy afterward.
+
 ## Roster
 
 Naming convention: agents are role nouns (`builder`, `critic`); skills are verbs/actions (`specify`, `commit`).
@@ -154,6 +183,9 @@ New additions follow the same word-class split.
 | `agents/compliance-officer.md` | agent | pre-filters spec/branch/PR for real regulatory/compliance questions |
 | `agents/product-manager.md` | agent | harsh product/UX critique of spec/branch/PR |
 | `agents/photo-generator.md` | agent | local AI photo-generation: rig setup, model downloads, identity-consistent image batches |
+| `agents/wordsmith.md` | agent | communicative language: formal writing, messages, speeches, talking points in an American Millennial voice |
+| `agents/visual-critic.md` | agent | holistic visual design sweep of print, PDF, and HTML deliverables |
+| `agents/visual-builder.md` | agent | applies visual fixes from `visual-critic` findings |
 | `skills/specify/SKILL.md` | skill | turns a rough spec into an implementation-ready design doc |
 | `skills/implement/SKILL.md` | skill | builds exactly what a finished spec says, iterating to green |
 | `skills/commit/SKILL.md` | skill | organizes finished work into logical commits, never auto-commits |

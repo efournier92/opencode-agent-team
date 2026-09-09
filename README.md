@@ -50,11 +50,12 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 ### `models.yaml`
 
 - Single source of truth for model tiers and agent-to-tier mapping.
-  - *Supports (`top`, `mid`, `low`).*
+  - *Supports (`top`, `mid`, `low`, `language-high`, `vision-high`, `vision-low`, `image-generation-high`).*
 
 ### `scripts/apply-models.py`
 
-- Regenerates agent frontmatter and `opencode.json.sample` from `models.yaml`.
+- Renders `models.yaml` into `opencode.json.sample`.
+- Strips any stray `model:` line from agent frontmatter; fails loud if a skill file ever grows one.
 
 ### `opencode.json.sample`
 
@@ -66,7 +67,7 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 
 | Agent | Mode | Tier | Description |
 |---|---|---|---|
-| `chief` | primary | top | Operator agent that decides, decomposes, routes work to specialists, verifies output, and writes handoffs. |
+| `chief` | primary | mid | Operator agent that decides, decomposes, routes work to specialists, verifies output, and writes handoffs. |
 | `builder` | subagent | mid | Bounded implementation worker for a well-specified task with a clear done-check. |
 | `qa` | subagent | mid | PASS/FAIL verification agent that proves claims by executing commands; read-only on code. |
 | `critic` | subagent | mid | Red-team reviewer that attacks handoffs, plans, diffs, and claims for fake progress before they are trusted. |
@@ -76,7 +77,10 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 | `investigator` | subagent | low | Low-tier read-only in-repo code locator that finds where symbols are defined and what calls them, with compressed deterministic output. |
 | `compliance-officer` | subagent | mid | Pre-filters specs, branches, and PRs for regulatory/legal/fiduciary/privacy questions worth a human compliance officer's time. |
 | `product-manager` | subagent | mid | Harsh product/UX critique of specs, branches, and PRs from the user's perspective. |
-| `photo-generator` | subagent | mid | Local AI photo-generation specialist: sets up a ComfyUI/SDXL rig, downloads models, produces identity-consistent artistic images via scripted runners. |
+| `photo-generator` | subagent | image-generation-high | Local AI photo-generation specialist: sets up a ComfyUI/SDXL rig, downloads models, produces identity-consistent artistic images via scripted runners. |
+| `wordsmith` | subagent | language-high | Communicative-language specialist: formal writing, messages, speeches, talking points in an American Millennial voice. |
+| `visual-critic` | subagent | vision-high | Holistic visual design sweep of print, PDF, and HTML deliverables. |
+| `visual-builder` | subagent | vision-low | Applies visual fixes from `visual-critic` findings. |
 
 *Mode and tier are shipped defaults. Model IDs are user-configurable via `models.yaml` (see Model Tiers).*
 
@@ -101,14 +105,19 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 
 ### Configure
 
-All model assignments driven by `models.yaml`:
+All model assignments are driven by `models.yaml`.
+The script renders that file into `opencode.json.sample`, which is the JSON config OpenCode actually reads at runtime.
+Agent and skill `.md` files never declare a `model:` line in their frontmatter; doing so would shadow the JSON config and break this single-source-of-truth architecture.
 
 ```yaml
 tiers:
   # DeepSeek V4 (shipped default)
-  top:   deepseek/deepseek-v4-pro    # thinking mode on
-  mid:   deepseek/deepseek-v4-pro
-  low:   deepseek/deepseek-v4-flash
+  top:         deepseek/deepseek-v4-pro    # thinking mode on
+  mid:         deepseek/deepseek-v4-pro
+  low:         deepseek/deepseek-v4-flash
+  language-high: opencode-go/glm-5.3
+  vision-high:   opencode-go/qwen3.8-max
+  vision-low:    opencode-go/deepseek-v4-flash-vision-exp
 
   # Claude:
   # top:   anthropic/claude-opus-5
@@ -121,9 +130,12 @@ tiers:
   # low:   openai/gpt-5.6-luna
 
 agent_tiers:
-  chief: top
+  chief: mid
   builder: mid
+  qa: mid
+  critic: mid
   scout: low
+  investigator: low
   ...
 ```
 
@@ -136,4 +148,7 @@ To change model IDs, or move an agent between tiers, edit `models.yaml` and run:
 ```bash
 python3 scripts/apply-models.py
 ```
+
+The script writes the regenerated `opencode.json.sample`; merge it into your `opencode.json` or `opencode.jsonc` (or copy it on top if the file is unmodified).
+Agent `.md` files are touched only to strip stale `model:` lines from frontmatter; no other modification.
 
