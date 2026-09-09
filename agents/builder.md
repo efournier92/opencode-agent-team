@@ -1,7 +1,6 @@
 ---
 description: Bounded implementation worker for a well-specified task with a clear done-check.
 mode: subagent
-model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: allow

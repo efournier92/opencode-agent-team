@@ -1,7 +1,6 @@
 ---
 description: Repairs the agent system itself (configs, hooks, instruction docs) and runs improvement mode for recurring failures.
 mode: subagent
-model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: allow

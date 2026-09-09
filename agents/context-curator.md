@@ -1,7 +1,6 @@
 ---
 description: Hygiene agent for instruction docs, memory index, and handoffs; keeps context lean and claims true.
 mode: subagent
-model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: allow

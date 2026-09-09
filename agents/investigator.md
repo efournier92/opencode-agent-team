@@ -1,7 +1,6 @@
 ---
 description: Low-tier read-only in-repo code locator: finds where symbols are defined and what calls them. Compressed deterministic output.
 mode: subagent
-model: deepseek/deepseek-v4-flash
 permission:
   read: allow
   edit: deny

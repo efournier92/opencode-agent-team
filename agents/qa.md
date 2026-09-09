@@ -1,7 +1,6 @@
 ---
 description: PASS/FAIL verification agent that proves claims by executing commands; read-only on code.
 mode: subagent
-model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: deny

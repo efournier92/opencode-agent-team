@@ -1,7 +1,6 @@
 ---
 description: Red-team reviewer that attacks handoffs, plans, diffs, and claims for fake progress before they are trusted.
 mode: subagent
-model: deepseek/deepseek-v4-pro
 permission:
   read: allow
   edit: deny
