@@ -1,7 +1,16 @@
 # Model tier mapping for the multi-agent plugin.
 # This is the single source of truth for agent model assignments.
-# After editing, run scripts/apply-models.py to regenerate agent frontmatter
-# and opencode.json.sample from this file.
+# models.yaml drives opencode.json.sample (and ultimately your
+# opencode.json / opencode.jsonc); that JSON file is what OpenCode
+# actually reads at runtime.
+#
+# Agent and skill .md files must NOT declare a model: in their
+# frontmatter; doing so shadows the JSON config. scripts/apply-models.py
+# enforces this by stripping any stray model: lines from agent files on
+# each run and failing loudly if a skill file ever grows one.
+#
+# After editing this file, run scripts/apply-models.py to regenerate
+# opencode.json.sample from this file.
 
 # Tier model IDs (OpenCode provider/model-id format).
 # Shipped default: DeepSeek V4. Commented alternatives: Claude, OpenAI (2026-08).
@@ -10,6 +19,10 @@ tiers:
   top:   deepseek/deepseek-v4-pro    # thinking mode on
   mid:   deepseek/deepseek-v4-pro
   low:   deepseek/deepseek-v4-flash
+  language-high: opencode-go/glm-5.3
+  vision-high: opencode-go/qwen3.8-max
+  vision-low: opencode-go/deepseek-v4-flash-vision-exp
+  image-generation-high: openrouter/google/gemini-3-pro-image
 
   # Claude:
   # top:   anthropic/claude-opus-5
@@ -24,7 +37,7 @@ tiers:
 # Agent-to-tier mapping.
 # Agents not listed here inherit the invoking primary agent's model.
 agent_tiers:
-  chief: top
+  chief: mid
 
   critic: mid
   system-fixer: mid
@@ -33,7 +46,10 @@ agent_tiers:
   qa: mid
   compliance-officer: mid
   context-curator: mid
-  photo-generator: mid
+  photo-generator: image-generation-high
+  wordsmith: language-high
+  visual-critic: vision-high
+  visual-builder: vision-low
 
   scout: low
   investigator: low

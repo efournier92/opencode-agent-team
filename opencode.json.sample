@@ -44,7 +44,19 @@
     },
     "photo-generator": {
       "mode": "subagent",
-      "model": "deepseek/deepseek-v4-pro"
+      "model": "openrouter/google/gemini-3-pro-image"
+    },
+    "wordsmith": {
+      "mode": "subagent",
+      "model": "opencode-go/glm-5.3"
+    },
+    "visual-critic": {
+      "mode": "subagent",
+      "model": "opencode-go/qwen3.8-max"
+    },
+    "visual-builder": {
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-flash-vision-exp"
     },
     "scout": {
       "mode": "subagent",
