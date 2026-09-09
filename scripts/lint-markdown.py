@@ -10,6 +10,9 @@ Enforces the "Markdown style" section of AGENTS.md:
   3. No sentence is split across source lines. A prose or list line that
      ends without sentence-final punctuation and continues on the next
      line is a wrapped sentence.
+  4. No banned LLM-artifact phrases ("delve", "furthermore", ...) in
+     prose. Inline code spans, fenced code blocks, and YAML frontmatter
+     are exempt, matching rule 1.
 
 Exit code 0 = clean, 1 = violations found.
 """
@@ -19,9 +22,26 @@ import sys
 from pathlib import Path
 
 BANNED = "\u2014\u2013\u2026\u2192\u2190\u21d2\u201c\u201d\u2018\u2019"
+BANNED_PHRASES = [
+    "delve",
+    "furthermore",
+    "moreover",
+    "it's worth noting",
+    "in conclusion",
+    "notably",
+    "seamless",
+    "robust",
+    "leverage",
+    "as an AI",
+    "I'd be happy to",
+]
+BANNED_PHRASE_PATTERNS = [
+    (phrase, re.compile(r"\b" + re.escape(phrase) + r"\b", re.IGNORECASE))
+    for phrase in BANNED_PHRASES
+]
 HEADER_RE = re.compile(r"^#{1,6} ")
 FENCE_RE = re.compile(r"^```")
-INLINE_CODE_RE = re.compile(r"`[^`]*`")
+INLINE_CODE_RE = re.compile(r"(`[^`]*`)")
 LIST_ITEM_RE = re.compile(r"^\s*(?:[-*+]|\d+\.)\s+")
 SENTENCE_END_RE = re.compile(r'[.!?:;]["\')\]]*$')
 
@@ -55,9 +75,12 @@ def lint_file(path):
             continue
         if stripped.startswith("|"):
             continue
-        prose = INLINE_CODE_RE.sub("", raw)
-        if any(ch in BANNED for ch in prose):
+        prose_parts = INLINE_CODE_RE.split(raw)[::2]
+        if any(any(ch in BANNED for ch in prose) for prose in prose_parts):
             errors.append(f"{path}:{i+1}: banned character in prose")
+        for phrase, pat in BANNED_PHRASE_PATTERNS:
+            if any(pat.search(prose) for prose in prose_parts):
+                errors.append(f"{path}:{i+1}: banned phrase '{phrase}'")
         if HEADER_RE.match(raw):
             nxt = lines[i + 1] if i + 1 < len(lines) else None
             if nxt is None or nxt.strip() != "":
