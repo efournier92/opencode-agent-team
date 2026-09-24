@@ -2,7 +2,7 @@
 
 Drop-in `opencode.jsonc` variants for the multi-agent plugin.
 
-Each file is a complete OpenCode config aligned with the project's `opencode.json.sample` roster (14 agents as of 2026-09-08). Swap one in to switch every chat lane to a single provider; swap back to revert.
+Each file is a complete OpenCode config aligned with the project's `opencode.json.sample` roster (14 agents as of 2026-09-24). Swap one in to switch every chat lane to a single provider; swap back to revert.
 
 ## Files
 
@@ -14,7 +14,7 @@ Each file is a complete OpenCode config aligned with the project's `opencode.jso
 
 Notes per file:
 
-- `opencode.jsonc.deepseek` runs every chat, reasoning, vision, and prose lane on the direct DeepSeek API. The single exception is `photo-generator`: DeepSeek ships zero image-generation models on its direct API, so that lane stays on `google/gemini-3-pro-image`. `visual-critic` and `visual-builder` use `deepseek-v4-flash-vision-exp` (the only DeepSeek vision model; experimental and flash-tier, so visual-critic loses some quality vs the qwen3.8-max baseline). `wordsmith` uses `deepseek-v4-pro`; DeepSeek's prose recommendation is the same chat model with low effort, so `reasoningEffort` here is what the mixed variant had (`high`).
+- `opencode.jsonc.deepseek` runs every chat, reasoning, vision, and prose lane on the direct DeepSeek API. The single exception is `photo-generator`: DeepSeek ships zero image-generation models on its direct API, so that lane stays on `google/gemini-3-pro-image`. `visual-critic` and `visual-builder` use `deepseek-flash` (DeepSeek V4.1 Flash, which supports vision natively); V4.1 Flash is flash-tier, so `visual-critic` is still a step down from the qwen3.8-max baseline. `wordsmith` uses `deepseek-v4-pro`; DeepSeek's prose recommendation is the same chat model with low effort, so `reasoningEffort` here is what the mixed variant had (`high`). The deprecated `deepseek-v4-flash` and `deepseek-v4-flash-vision-exp` IDs were retired on 2026-09-24 in favor of `deepseek-flash`.
 - `opencode.jsonc.minimax` keeps `reasoningEffort` unset because M3 effort-param support is unverified; a 400 would break every call.
 - `opencode.jsonc.2026-09-mixed` is a frozen snapshot of the previous DeepSeek variant that mixed providers (`openrouter/qwen3.8-max` for visual-critic, `openrouter/glm-5.3` for wordsmith). Swap back to it if the pure-DeepSeek vision or prose lanes regress unacceptably.
 

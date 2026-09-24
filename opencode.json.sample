@@ -56,15 +56,15 @@
     },
     "visual-builder": {
       "mode": "subagent",
-      "model": "opencode-go/deepseek-v4-flash-vision-exp"
+      "model": "opencode-go/deepseek-v4.1-flash"
     },
     "scout": {
       "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash"
+      "model": "deepseek/deepseek-flash"
     },
     "investigator": {
       "mode": "subagent",
-      "model": "deepseek/deepseek-v4-flash"
+      "model": "deepseek/deepseek-flash"
     }
   }
 }

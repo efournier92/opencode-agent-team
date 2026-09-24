@@ -13,15 +13,15 @@
 # opencode.json.sample from this file.
 
 # Tier model IDs (OpenCode provider/model-id format).
-# Shipped default: DeepSeek V4. Commented alternatives: Claude, OpenAI (2026-08).
+# Shipped default: DeepSeek V4.1. Commented alternatives: Claude, OpenAI (2026-08).
 # Verify exact IDs with `/models` after connecting the provider.
 tiers:
   top:   deepseek/deepseek-v4-pro    # thinking mode on
   mid:   deepseek/deepseek-v4-pro
-  low:   deepseek/deepseek-v4-flash
+  low:   deepseek/deepseek-flash
   language-high: opencode-go/glm-5.3
   vision-high: opencode-go/qwen3.8-max
-  vision-low: opencode-go/deepseek-v4-flash-vision-exp
+  vision-low: opencode-go/deepseek-v4.1-flash
   image-generation-high: openrouter/google/gemini-3-pro-image
 
   # Claude:

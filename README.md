@@ -112,13 +112,13 @@ Agent and skill `.md` files never declare a `model:` line in their frontmatter; 
 
 ```yaml
 tiers:
-  # DeepSeek V4 (shipped default)
+  # DeepSeek V4.1 (shipped default)
   top:         deepseek/deepseek-v4-pro    # thinking mode on
   mid:         deepseek/deepseek-v4-pro
-  low:         deepseek/deepseek-v4-flash
+  low:         deepseek/deepseek-flash
   language-high: opencode-go/glm-5.3
   vision-high:   opencode-go/qwen3.8-max
-  vision-low:    opencode-go/deepseek-v4-flash-vision-exp
+  vision-low:    opencode-go/deepseek-v4.1-flash
 
   # Claude:
   # top:   anthropic/claude-opus-5
@@ -140,7 +140,7 @@ agent_tiers:
   ...
 ```
 
-*Shipped default is DeepSeek V4; commented Claude and OpenAI alternatives live in `models.yaml`.*
+*Shipped default is DeepSeek V4.1; commented Claude and OpenAI alternatives live in `models.yaml`.*
 
 ### Update
 
