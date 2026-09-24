@@ -5,7 +5,7 @@ Install this plugin into OpenCode so the multi-agent system is available in ever
 ## What gets installed
 
 - Subagents in `agents/` to `<config-dir>/agents/`
-- **10 skills** in `skills/` to `<config-dir>/skills/`
+- **11 skills** in `skills/` to `<config-dir>/skills/`
 - **Shared rulebook** `AGENTS.md` to `~/.config/opencode/AGENTS.md` (global) or `<project-root>/AGENTS.md` (per-project)
 - **OpenCode config** `opencode.json.sample` merged into `~/.config/opencode/opencode.json` or `opencode.jsonc`
 - **Model tiers** `models.yaml` to `<config-dir>/models.yaml` (copied only if not already present; never overwrites a customized copy on reinstall)
@@ -78,7 +78,7 @@ To change model IDs later, edit the repo's `models.yaml`, run `python3 scripts/a
 
 6. Verify:
    - Run `/agents` in the TUI; expect `chief` plus all installed subagents.
-   - Check the `skill` tool description; it should list all 10 skills.
+   - Check the `skill` tool description; it should list all 11 skills.
    - Start a new session; it should begin as `chief`.
 
 ## Per-project install

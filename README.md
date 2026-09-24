@@ -32,7 +32,7 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 
 1. **Run `/agents` in the OpenCode TUI**
     - Expect all many agents available *(`chief`, `builder`, `critic`, etc).*
-2. The `skill` tool description should list all 10 skills *(`specify`, `implement`, etc).*
+2. The `skill` tool description should list all 11 skills *(`specify`, `implement`, etc).*
 
 ## Contents
 
@@ -84,7 +84,7 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 
 *Mode and tier are shipped defaults. Model IDs are user-configurable via `models.yaml` (see Model Tiers).*
 
-### `skills/` (10 skills)
+### `skills/` (11 skills)
 
 - 1 directory per skill, each with with a `SKILL.md` inside.
 
@@ -100,6 +100,7 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 | `terse` | Toggle terse, high-signal output: cut filler while keeping technical facts exact. |
 | `minimalist` | Force the laziest, minimal solution that works: cut over-engineering, reuse existing code, ship the smallest diff. |
 | `ui-craft` | Sleek, distinctive frontend design guidance: typography, palette, layout, and anti-AI-slop checks. |
+| `burn` | Delete the current session from local history once you quit, after confirming. Session-only. |
 
 ## Model Tiers
 

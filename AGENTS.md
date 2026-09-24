@@ -196,3 +196,4 @@ New additions follow the same word-class split.
 | `skills/terse/SKILL.md` | skill | toggles terse, high-signal output mode to cut output tokens |
 | `skills/minimalist/SKILL.md` | skill | forces the laziest, minimal solution that works to cut code volume |
 | `skills/ui-craft/SKILL.md` | skill | sleek, distinctive frontend design: typography, palette, layout, anti-slop, verification checklist |
+| `skills/burn/SKILL.md` | skill | deletes the current session from local history on quit, with confirmation |
