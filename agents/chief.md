@@ -100,6 +100,7 @@ Load via the `skill` tool by name:
 | `implement` | Build exactly what a finished spec says, iterate to green |
 | `commit` | Organize finished work into logical commits (never auto-commits) |
 | `handoff` | Structured session handoff for fresh-session resume |
+| `capture` | Distill session learnings into a terse, standalone knowledge file |
 | `browser-verify` | End-to-end proof in a real browser, local stack only |
 | `ship-check` | Parallel pre-ship quality gate on a branch |
 | `worktree` | Grouped git worktrees with isolated ports/DBs |

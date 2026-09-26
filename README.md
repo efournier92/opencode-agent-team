@@ -32,7 +32,7 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 
 1. **Run `/agents` in the OpenCode TUI**
     - Expect all many agents available *(`chief`, `builder`, `critic`, etc).*
-2. The `skill` tool description should list all 11 skills *(`specify`, `implement`, etc).*
+2. The `skill` tool description should list all 12 skills *(`specify`, `implement`, etc).*
 
 ## Contents
 
@@ -84,7 +84,7 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 
 *Mode and tier are shipped defaults. Model IDs are user-configurable via `models.yaml` (see Model Tiers).*
 
-### `skills/` (11 skills)
+### `skills/` (12 skills)
 
 - 1 directory per skill, each with with a `SKILL.md` inside.
 
@@ -94,6 +94,7 @@ cp -n AGENTS.md ~/.config/opencode/AGENTS.md
 | `implement` | Build exactly what a finished design spec says and iterate to a green test suite. |
 | `commit` | Organize already-completed work into logical commits: stages chunks and suggests messages, never commits. |
 | `handoff` | Write a structured session handoff so a fresh session resumes without re-exploring. |
+| `capture` | Distill session learnings into a terse, standalone knowledge file for a human or future agent. |
 | `browser-verify` | Prove a feature works end-to-end in a real browser against the local dev stack only. |
 | `ship-check` | Run a parallel pre-ship quality gate on a feature branch with read-only reviewers. |
 | `worktree` | Create, list, or remove grouped git worktrees across repos, each with isolated ports and its own database. |

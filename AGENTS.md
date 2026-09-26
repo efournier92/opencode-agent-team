@@ -193,6 +193,7 @@ New additions follow the same word-class split.
 | `skills/implement/SKILL.md` | skill | builds exactly what a finished spec says, iterating to green |
 | `skills/commit/SKILL.md` | skill | organizes finished work into logical commits, never auto-commits |
 | `skills/handoff/SKILL.md` | skill | writes a structured session handoff for fresh-session resume |
+| `skills/capture/SKILL.md` | skill | distills session learnings into a terse, standalone knowledge file for a human or future agent |
 | `skills/browser-verify/SKILL.md` | skill | proves a feature works end-to-end in a real browser, local stack only |
 | `skills/ship-check/SKILL.md` | skill | parallel pre-ship quality gate on a branch |
 | `skills/worktree/SKILL.md` | skill | manages grouped git worktrees with isolated ports/DBs |
