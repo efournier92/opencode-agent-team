@@ -124,6 +124,9 @@ The instruction docs themselves comply with these rules.
    - Use an ordered list when order matters; use a bulleted list when it does not.
 
 Enforcement: when a Markdown file is the deliverable (spec, handoff, doc), the verification step runs `scripts/lint-markdown.py` against it before PASS.
+The linter machine-checks all four rules: banned characters and smart quotes, banned LLM-artifact phrases, a blank line after every heading, and sentences split across lines.
+Inline code spans, fenced code blocks, YAML frontmatter, and blockquote lines are exempt, so verbatim quotes stay legal.
+The scripts live in the plugin repository under `scripts/`; run them from the repository checkout, because the installer copies agents, skills, `AGENTS.md`, and `models.yaml` into the config directory but not the scripts.
 
 ## Patch the system
 
